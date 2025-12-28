@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Broast - فاميلي بروست | القائمة</title>
+    <meta name="description" content="قائمة طعام مطعم فاميلي بروست - أشهى وجبات البروست والبرجر">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='95' fill='%23fff' stroke='%23c41e3a' stroke-width='5'/%3E%3Ctext x='100' y='70' text-anchor='middle' font-size='22' font-weight='bold' fill='%23c41e3a'%3EFAMILY%3C/text%3E%3Ctext x='100' y='100' text-anchor='middle' font-size='26' font-weight='bold' fill='%23c41e3a'%3EBROAST%3C/text%3E%3Ctext x='100' y='125' text-anchor='middle' font-size='11' fill='%23666'%3EBroast Chicken%3C/text%3E%3C/svg%3E"
+                        alt="Family Broast Logo" id="restaurantLogo">
+                </div>
+                <div class="restaurant-info">
+                    <h1>فاميلي بروست</h1>
+                    <p>Family Broast Restaurant</p>
+                </div>
+            </div>
+            <div class="header-controls">
+                <div class="lang-toggle">
+                    <button id="langToggle" class="btn-control">EN</button>
+                </div>
+                <div class="tv-toggle">
+                    <button id="tvToggle" class="btn-control btn-tv-mode" title="TV Mode">📺</button>
+                </div>
+                <div class="theme-toggle">
+                    <button id="themeToggle" class="btn-control">🌙</button>
+                </div>
+                <div class="desktop-toggle">
+                    <button id="desktopToggle" class="btn-control btn-desktop-toggle" title="Desktop View">🖥️</button>
+                </div>
+                <div class="dev-mode-toggle">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="devModeToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="toggle-label">وضع المطور</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Developer Mode Banner -->
+    <div class="dev-banner" id="devBanner">
+        <div class="dev-banner-content">
+            <span class="dev-icon">⚙️</span>
+            <span>وضع المطور مفعل - اضغط على أي عنصر للتعديل</span>
+            <button class="btn-add-item" id="addNewItemBtn">➕ إضافة صنف جديد</button>
+            <button class="btn-reset" id="resetDataBtn">🔄 إعادة تعيين</button>
+            <button class="btn-logout" id="logoutBtn">🚪 تسجيل الخروج</button>
+        </div>
+    </div>
+
+    <!-- Category Navigation -->
+    <nav class="category-nav" id="categoryNav">
+        <div class="category-tabs">
+            <!-- Categories will be inserted here by JS -->
+        </div>
+    </nav>
+
+    <!-- Menu Grid -->
+    <main class="menu-container">
+        <div class="menu-grid" id="menuGrid">
+            <!-- Menu items will be inserted here by JS -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <p>📞 01040484460 | 01004195791</p>
+                <p>جميع الوجبات تقدم مع خبز وبطاطس وكولسلو</p>
+            </div>
+            <div class="footer-brand">
+                <p>© 2024 Family Broast - جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">تعديل الصنف</h2>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" id="editItemId">
+                    <input type="hidden" id="editCategoryId">
+
+                    <div class="form-group">
+                        <label for="editName">اسم الصنف</label>
+                        <input type="text" id="editName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editDescription">الوصف</label>
+                        <textarea id="editDescription" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editPrice">السعر (ج.م)</label>
+                        <input type="text" id="editPrice" placeholder="مثال: 50 أو 80/120" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editImage">رابط الصورة</label>
+                        <input type="url" id="editImage" placeholder="https://...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>أو رفع صورة جديدة</label>
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <input type="file" id="imageUpload" accept="image/*" hidden>
+                            <div class="upload-placeholder">
+                                <span class="upload-icon">📷</span>
+                                <span>اضغط لرفع صورة</span>
+                            </div>
+                            <img id="imagePreview" src="" alt="معاينة" style="display: none;">
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="submit" class="btn-save">💾 حفظ التغييرات</button>
+                        <button type="button" class="btn-delete" id="deleteItemBtn">🗑️ حذف الصنف</button>
+                        <button type="button" class="btn-cancel" id="cancelEdit">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add New Item Modal -->
+    <div class="modal-overlay" id="addModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>إضافة صنف جديد</h2>
+                <button class="modal-close" id="closeAddModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="addCategory">الفئة</label>
+                        <select id="addCategory" required>
+                            <!-- Categories will be inserted here -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="addName">اسم الصنف</label>
+                        <input type="text" id="addName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="addDescription">الوصف</label>
+                        <textarea id="addDescription" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="addPrice">السعر (ج.م)</label>
+                        <input type="text" id="addPrice" placeholder="مثال: 50 أو 80/120" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="addImage">رابط الصورة</label>
+                        <input type="url" id="addImage" placeholder="https://...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>أو رفع صورة</label>
+                        <div class="image-upload-area" id="addImageUploadArea">
+                            <input type="file" id="addImageUpload" accept="image/*" hidden>
+                            <div class="upload-placeholder">
+                                <span class="upload-icon">📷</span>
+                                <span>اضغط لرفع صورة</span>
+                            </div>
+                            <img id="addImagePreview" src="" alt="معاينة" style="display: none;">
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="submit" class="btn-save">➕ إضافة الصنف</button>
+                        <button type="button" class="btn-cancel" id="cancelAdd">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Developer Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal login-modal">
+            <div class="modal-header">
+                <h2>🔐 تسجيل الدخول للمطور</h2>
+                <button class="modal-close" id="closeLoginModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginUsername">اسم المستخدم</label>
+                        <input type="text" id="loginUsername" required autocomplete="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">كلمة المرور</label>
+                        <input type="password" id="loginPassword" required autocomplete="current-password">
+                    </div>
+
+                    <div id="loginError" class="login-error" style="display: none;">
+                        ❌ اسم المستخدم أو كلمة المرور غير صحيحة
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="submit" class="btn-save">🔓 تسجيل الدخول</button>
+                        <button type="button" class="btn-cancel" id="cancelLogin">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <button id="scrollTopBtn" class="scroll-top" title="Go to top">↑</button>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
